@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.snfq.files.mapper.FilesDOMapper" >
+  <resultMap id="BaseResultMap" type="com.snfq.files.domain.FilesDO" >
+	    <id column="id" property="id" jdbcType="VARCHAR" />
+	    <result column="path" property="path" jdbcType="VARCHAR" />
+	    <result column="content_type" property="contentType" jdbcType="VARCHAR" />
+	    <result column="size" property="size" jdbcType="BIGINT" />
+	    <result column="creator" property="creator" jdbcType="VARCHAR" />
+	    <result column="gmt_created" property="gmtCreated" jdbcType="TIMESTAMP" />
+	    <result column="editor" property="editor" jdbcType="VARCHAR" />
+	    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    	id,
+    	`path`,
+    	content_type,
+    	`size`,
+    	creator,
+    	gmt_created,
+    	editor,
+    	gmt_modified
+  </sql>
+  
+  <insert id="insert" >
+    insert into t_files
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+    	id,
+    	`path`,
+    	content_type,
+    	`size`,
+    	creator,
+    	gmt_created,
+    	editor,
+    	gmt_modified,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	    #{ id,jdbcType=VARCHAR },
+	    #{ path,jdbcType=VARCHAR },
+	    #{ contentType,jdbcType=VARCHAR },
+	    #{ size,jdbcType=BIGINT },
+	    #{ creator,jdbcType=VARCHAR },
+	    #{ gmtCreated,jdbcType=TIMESTAMP },
+	    #{ editor,jdbcType=VARCHAR },
+	    #{ gmtModified,jdbcType=TIMESTAMP },
+    </trim>
+  </insert>
+  
+    <select id="getByPrimary" resultMap="BaseResultMap" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from t_files
+	    where 
+	    	id = #{ id,jdbcType=VARCHAR }
+  	</select>
+    
+</mapper>
